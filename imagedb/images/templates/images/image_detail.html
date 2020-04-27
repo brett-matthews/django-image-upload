@@ -1,14 +1,22 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block contents %}
+
+<div id="downloadModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+    </div>
+  </div>
+</div>
 
 <div class="container-fluid">
   <div class="row mt-5 mb-3">
     <h3 class="one">Image: {{ object.image }}</h3>
-    <button class="btn btn-primary ml-auto">Upload</button>
+    <button id="btnDownload" data-id="{{ object.pk }}" class="btn btn-primary ml-auto">Download</button>
   </div>
 </div>
-
 
 <div class="row">
 
@@ -33,6 +41,10 @@
     </div>
 
 </div>
+{% endblock %}
+
+{% block custom_script %}
+    <script src="{% static "images/images/image_detail.js" %}"></script>
 {% endblock %}
 
 
