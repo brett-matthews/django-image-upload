@@ -5,3 +5,4 @@ db.sqlite3
 /.idea
 /imagedb/.DS_Store
 /.DS_Store
+/imagedb/images/.DS_Store
