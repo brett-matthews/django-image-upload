@@ -40,7 +40,6 @@ class ImageCreateView(CreateView):
 
         return HttpResponseRedirect(self.get_success_url())
 
-    # TODO dependency injection here?
 
 class ImageDownloadView(View):
 
