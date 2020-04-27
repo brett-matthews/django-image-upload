@@ -1,12 +1,5 @@
-Assignar Python/Django Tech Test
+Django Image Upload
 ================================
-
-This is a base project for technical tests we use in our hiring process.
-
-The actual technical tasks and challenges are not included in this repo 
-so that we are able to customise the tasks/challenges according to the 
-roles we are looking for.    
-
 
 Setup
 -----
@@ -43,14 +36,14 @@ MySQL DB
 --------
 
 - Install requirements in `requirements_mysql.txt`
-- Set DJANGO_SETTINGS_MODULE=imagedb.settings.mysql
+- Set `DJANGO_SETTINGS_MODULE=imagedb.settings.mysql`
 
 
 Unit Testing
 ------------
 
-- Install requirements in `requirements_unit_test`.txt. This installs a library to overrides storage to Memory implementation
-- Set DJANGO_SETTINGS_MODULE=imagedb.settings.unit_test to ensure SQLLite DB is used.
+- Install requirements in `requirements_unit_test.txt`. This installs a library to overrides storage to Memory implementation
+- Set `DJANGO_SETTINGS_MODULE=imagedb.settings.unit_test` to ensure SQLLite DB is used.
 
 
 Project Information
