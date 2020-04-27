@@ -22,10 +22,10 @@
             </tr>
           </thead>
           <tbody>
-            {% for l in object.labels %}
+            {% for l in object.labels.all %}
               <tr>
                 <td>{{ l.label }}</td>
-                <td>{{ image.confidence }}</td>
+                <td>{{ l.confidence }}</td>
               </tr>
             {% endfor %}
           </tbody>
