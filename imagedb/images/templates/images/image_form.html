@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block contents %}
+
+<div class="col-md-7 order-md-1">
+  <h3 class="mt-5 mb-3">Upload Image</h3>
+  <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+      {% csrf_token %}
+      {{ form.as_p }}
+    <button class="btn btn-primary btn-lg btn-block" type="submit">Upload</button>
+  </form>
+</div>
+
+{% endblock %}
