@@ -1,5 +1,5 @@
 import os
-import settings.base
+from .base import *
 
 
 DATABASES = {
