@@ -1,10 +1,15 @@
+from unittest.mock import patch
+
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
 from django.urls import reverse
+
+from override_storage import override_storage
 
 from imagedb.images.models import Image, ImageLabel
 
 
-class ImageDetailTest(TestCase):
+class ImageDetailViewTest(TestCase):
 
     def setUp(self):
         self.client = Client()
@@ -33,7 +38,7 @@ class ImageDetailTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class ImageListTest(TestCase):
+class ImageListViewTest(TestCase):
 
     def setUp(self):
         self.client = Client()
@@ -74,3 +79,48 @@ class ImageListTest(TestCase):
     def test_get_returns_200(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
+
+
+class ImageCreateViewTest(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse('image-create')
+
+        mock_aws_rekognition = patch('images.views.AwsRekognitionLabels.process_s3_object')
+        self.mock_aws_rekognition = mock_aws_rekognition.start()
+        self.addCleanup(mock_aws_rekognition.stop)
+
+    def test_url_exists(self):
+        self.assertEqual('/image/upload/', self.url)
+
+    def test_post_returns_200(self):
+
+        with override_storage():
+
+            gif = (
+                b'\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00\x21\xf9\x04'
+                b'\x01\x0a\x00\x01\x00\x2c\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02'
+                b'\x02\x4c\x01\x00\x3b'
+            )
+
+            upload_image = SimpleUploadedFile('test.gif', gif, content_type='image/gif')
+
+            payload = {
+                'image': upload_image
+            }
+
+            self.mock_aws_rekognition.return_value = [
+                {
+                    'Name': 'label_1',
+                    'Confidence': '99.9'
+                },
+                {
+                    'Name': 'label_2',
+                    'Confidence': '9.9'
+                }
+            ]
+
+            response = self.client.post(self.url, data=payload, format='multipart')
+
+            self.assertEqual(response.status_code, 302)
