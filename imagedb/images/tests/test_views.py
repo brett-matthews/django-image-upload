@@ -31,3 +31,46 @@ class ImageDetailTest(TestCase):
     def test_get_returns_200(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
+
+
+class ImageListTest(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+
+        self.image = Image.objects.create(
+            image='image_1'
+        )
+        ImageLabel.objects.create(
+            image=self.image,
+            label='super_accurate_label',
+            confidence=99.9,
+        )
+        ImageLabel.objects.create(
+            image=self.image,
+            label='no_way_label',
+            confidence=1.0,
+        )
+
+        self.image_2 = Image.objects.create(
+            image='image_2'
+        )
+        ImageLabel.objects.create(
+            image=self.image_2,
+            label='super_accurate_label',
+            confidence=99.9,
+        )
+        ImageLabel.objects.create(
+            image=self.image_2,
+            label='no_way_label',
+            confidence=1.0,
+        )
+
+        self.url = reverse('image-list')
+
+    def test_url_exists(self):
+        self.assertEqual('/images/', self.url)
+
+    def test_get_returns_200(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
