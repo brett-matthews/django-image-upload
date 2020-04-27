@@ -18,9 +18,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from imagedb.images.views import ImageListView
+from imagedb.images.views import ImageListView, ImageDetailView
 
 urlpatterns = [
+    path('image/<int:pk>/', ImageDetailView.as_view(), name='image-detail'),
     path('', ImageListView.as_view(), name='image-list'),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
