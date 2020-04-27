@@ -7,6 +7,7 @@ from imagedb.images.models import Image, ImageLabel
 class ImageDetailTest(TestCase):
 
     def setUp(self):
+        self.client = Client()
         self.image_name = 'fake_image'
         self.image = Image.objects.create(
             image=self.image_name
