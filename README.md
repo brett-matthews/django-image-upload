@@ -39,6 +39,20 @@ Development
     $ ./manage.py runserver
 
 
+MySQL DB
+--------
+
+- Install requirements in `requirements_mysql.txt`
+- Set DJANGO_SETTINGS_MODULE=imagedb.settings.mysql
+
+
+Unit Testing
+------------
+
+- Install requirements in `requirements_unit_test`.txt. This installs a library to overrides storage to Memory implementation
+- Set DJANGO_SETTINGS_MODULE=imagedb.settings.unit_test to ensure SQLLite DB is used.
+
+
 Project Information
 -------------------
 
