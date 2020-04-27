@@ -87,7 +87,7 @@ class ImageCreateViewTest(TestCase):
         self.client = Client()
         self.url = reverse('image-create')
 
-        mock_aws_rekognition = patch('images.views.AwsRekognitionLabels.process_s3_object')
+        mock_aws_rekognition = patch('images.views.AwsRekognitionLabels.get_labels')
         self.mock_aws_rekognition = mock_aws_rekognition.start()
         self.addCleanup(mock_aws_rekognition.stop)
 
@@ -124,3 +124,27 @@ class ImageCreateViewTest(TestCase):
             response = self.client.post(self.url, data=payload, format='multipart')
 
             self.assertEqual(response.status_code, 302)
+
+
+class ImageDownloadViewTest(TestCase):
+
+    def setUp(self):
+
+        self.client = Client()
+        self.image_name = 'fake_image'
+        self.image = Image.objects.create(
+            image=self.image_name
+        )
+
+        mock_s3_presigned_url = patch('images.views.AwsS3PresignedUrl.get_image_url')
+        self.mock_s3_presigned_url = mock_s3_presigned_url.start()
+        self.addCleanup(mock_s3_presigned_url.stop)
+
+        self.url = reverse('image-download', args=(self.image.id,))
+
+    def test_url_exists(self):
+        self.assertEqual('/image/{}/download/'.format(self.image.id), self.url)
+
+    def test_get_returns_200(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
