@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 
 from imagedb.images.models import Image, ImageLabel
-from imagedb.images.services import AwsS3RekognitionLabels
+from imagedb.images.services import AwsRekognitionLabels
 
 
 class ImageListView(ListView):
@@ -25,7 +25,7 @@ class ImageCreateView(CreateView):
     def form_valid(self, form):
 
         self.object = form.save()
-        labels = AwsS3RekognitionLabels().process_s3_object(
+        labels = AwsRekognitionLabels().process_s3_object(
             s3_bucket=settings.AWS_STORAGE_BUCKET_NAME,
             s3_key=form.instance.image.name
         )

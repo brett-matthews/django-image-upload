@@ -1,7 +1,7 @@
 import boto3
 
 
-class AwsS3RekognitionLabels(object):
+class AwsRekognitionLabels(object):
 
     @staticmethod
     def process_s3_object(s3_bucket, s3_key):
