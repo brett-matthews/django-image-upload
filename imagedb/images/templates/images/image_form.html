@@ -1,14 +1,21 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block contents %}
 
 <div class="col-md-7 order-md-1">
   <h3 class="mt-5 mb-3">Upload Image</h3>
-  <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+  <form id="frmFileUpload" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
       {% csrf_token %}
       {{ form.as_p }}
-    <button class="btn btn-primary btn-lg btn-block" type="submit">Upload</button>
+    <button id="btnFormSubmit" class="btn btn-primary btn-lg btn-block" type="submit">
+        <span id="spanFormSubmit" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+        Upload
+    </button>
   </form>
 </div>
 
+{% endblock %}
+
+{% block custom_script %}
+    <script src="{% static "images/images/image_form.js" %}"></script>
 {% endblock %}
