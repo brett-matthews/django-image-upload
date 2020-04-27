@@ -23,6 +23,17 @@ Create your first superuser.
 Load initial seed data.
 
     $ ./manage.py loaddata images
+    
+### S3 Config
+
+Define S3 Bucket Details and Credentials as environment variables;
+
+```
+AWS_DEFAULT_REGION = os.environ['AWS_DEFAULT_REGION']
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+```
 
 Development
 -----------
