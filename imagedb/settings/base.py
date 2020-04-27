@@ -130,10 +130,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '../../uploads')
 MEDIA_URL = '/media/'
 
 DEFAULT_FILE_STORAGE = 'imagedb.images.infrastructure.PrivateMediaStorage'
+
 AWS_DEFAULT_REGION = os.environ['AWS_DEFAULT_REGION']
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 AWS_PRIVATE_MEDIA_LOCATION = 'media/private'
-# TODO - potential clean up
-# PRIVATE_FILE_STORAGE = 'imagedb.images.infrastructure.PrivateMediaStorage'
